@@ -34,7 +34,7 @@ class BloggerController extends Controller
             'password' => bcrypt($request->password),
             'created_at' => Carbon::now(),
         ]);
-        return back()->with('regSuccess', 'Registration completed successfully!');
+        return back()->with('regSuccess', 'Registration completed successfully! Now you can login & post.');
     }
 
     function blogger_login(Request $request)

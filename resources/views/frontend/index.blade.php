@@ -63,28 +63,32 @@
 
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
                     <!-- ======================= Post a Blog ======================== -->
+                    @auth('bloggerAuth')
+                        <div class="my-4">
+                            <form class="" action="{{ route('blog.store') }}" method="POST">
+                                @csrf
+                                <p class="h6">Write a new blog post</p>
+                                <input placeholder="Blog title" class="px-3 py-2 mb-2 " style="display: block; width: 400px"
+                                    value="{{ old('blog_title') }}" name="blog_title" />
+                                @error('blog_title')
+                                    <strong class="text-danger mb-2" style="display: block">{{ $message }}</strong>
+                                @enderror
+                                <textarea placeholder="Write your blog" cols="80" rows="7" class="px-3 py-2" name="blog_body"></textarea>
+                                @error('blog_body')
+                                    <strong class="text-danger mb-2" style="display: block">{{ $message }}</strong>
+                                @enderror
+                                <button type="submit"
+                                    class="btn btn-sm mb-5 ml-2 bg-dark text-light fs-md ft-medium">Post</button>
+                            </form>
+                        </div>
+                    @else
+                        <h5 class="mb-5 text-warning">You have to login first in order to post a blog.</h5>
+                    @endauth
 
-                    <div class="my-4">
-                        <form class="" action="{{ route('blog.store') }}" method="POST">
-                            @csrf
-                            <p class="h6">Write a new blog post</p>
-                            <input placeholder="Blog title" class="px-3 py-2 mb-2 " style="display: block; width: 400px"
-                                value="{{ old('blog_title') }}" name="blog_title" />
-                            @error('blog_title')
-                                <strong class="text-danger mb-2" style="display: block">{{ $message }}</strong>
-                            @enderror
-                            <textarea placeholder="Write your blog" cols="80" rows="7" class="px-3 py-2" name="blog_body"></textarea>
-                            @error('blog_body')
-                                <strong class="text-danger mb-2" style="display: block">{{ $message }}</strong>
-                            @enderror
-                            <button type="submit"
-                                class="btn btn-sm mb-5 ml-2 bg-dark text-light fs-md ft-medium">Post</button>
-                        </form>
-                    </div>
                     <!-- ======================= Post a Blog ============================ -->
 
                     <!-- ======================= Blogs ======================== -->
-
+                    <h3 class="mb-3">Featured Blogs</h3>
                     @foreach ($blogs as $blog)
                         <div class="row">
                             <div class="col-xl-9 col-lg-9">
